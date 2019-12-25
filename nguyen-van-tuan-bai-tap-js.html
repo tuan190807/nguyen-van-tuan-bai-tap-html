@@ -6,64 +6,116 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <style>
-        select{
-            width: 100px;
-            height: 30px;
+        .content{
+            display: flex;
+        }
+        .swap{
+            width: 300px;
+            height: 100px;
+            background-color: blanchedalmond;
+            margin: 20px;
+        }
+        .className{
+            margin: 5px;
+            height: 50px;
+        }
+        #class_name{
+            width: 200px;
+            padding: 10px;
+            margin: 10px 0px 0px 40px;
+        }
+        .name{
+            margin: 5px;
+            height: 50px;
+        }
+        #name{
+            width: 200px;
+            padding: 10px;
+            justify-content: center;
+            margin: 10px 0px 0px 40px;
+        }
+        #title1,#title2{
+            text-align: center;
+            font-size: 25px;
         }
     </style>
 </head>
 <body>
-    <select name="className" id="className">
-        <option value=".net">.Net</option>
-        <option value="angular">Angular</option>
-        <option value="java">Java</option>
-        <option value="test">Test</option>
-    </select>
-    <select name="name" id="name">
-        <option value="tran van a">tran van a</option>
-        <option value="tran van b">tran van b</option>
-        <option value="tran van c">tran van c</option>
-        <option value="tran van d">tran van d</option>
-        <option value="tran van e">tran van e</option>
-        <option value="tran van f">tran van f</option>
-        <option value="tran van g">tran van g</option>
-        <option value="tran van h">tran van h</option>
-        <option value="tran van j">tran van i</option>
-        <option value="tran van j">tran van j</option>
-    </select>
+    <div class="content">
+        <div class="swap">
+            <div class="className" id="info1"></div>
+            <div id="title1"></div>
+        </div>
+        <div class="swap">
+            <div class="name" id="info2"></div>
+            <div id="title2"></div>
+        </div>
+    </div>
 </body>
 <script>
-    var students = [
-{id: 1, name: 'tran van a', className: '.net'},
-{id: 2, name: 'tran van b', className: '.net'},
-{id: 3, name: 'tran van c', className: 'angular'},
-{id: 4, name: 'tran van d', className: 'angular'},
-{id: 5, name: 'tran van e', className: 'java'},
-{id: 6, name: 'tran van f', className: 'java'},
-{id: 7, name: 'tran van g', className: 'java'},
-{id: 8, name: 'tran van h', className: 'test'},
-{id: 9, name: 'tran van i', className: 'test'},
-{id: 10, name: 'tran van j', className: 'test'}
-]
+     var students = [
+                    {id: 1, name: 'tran van a', className: '.net'},
+                    {id: 2, name: 'tran van b', className: '.net'},
+                    {id: 3, name: 'tran van c', className: 'angular'},
+                    {id: 4, name: 'tran van d', className: 'angular'},
+                    {id: 5, name: 'tran van e', className: 'java'},
+                    {id: 6, name: 'tran van f', className: 'java'},
+                    {id: 7, name: 'tran van g', className: 'java'},
+                    {id: 8, name: 'tran van h', className: 'test'},
+                    {id: 9, name: 'tran van i', className: 'test'},
+                    {id: 10, name: 'tran van j', className: 'test'}
+                    ]
+// tao nut select
+    var sle = "<select name='class_name' id='class_name'>";
+    var tg;
+    function myClassName(x) {
+      if (x.className !== tg) {
+        sle += "<option value='" + x.className +"'>" + x.className +"</option><br>";
+      }
+      tg = x.className;
+    }
+    students.forEach(myClassName);
+    sle += "<option selected>Select</option></select>";
+
+    console.log(sle);
+    document.getElementById('info1').innerHTML = sle;
+
+ // tao nut option
+ var op = "<select name='name' id='name'>";
+    function myName(x) {
+        op += "<option value='" + x.name + "'>" + x.name + "</option><br>";
+    }
+    students.forEach(myName);
+    op += "<option selected>Option</option></select>";
+    document.getElementById('info2').innerHTML = op;
+
+// code
 var filterName = document.getElementById('name');
-var filterClassName = document.getElementById('className');
+var filterClassName = document.getElementById('class_name');
+var title1 = document.getElementById('title1');
+var title2 = document.getElementById('title2');
 filterClassName.addEventListener('change', onClassFilterChange);
 filterName.addEventListener('change',onNameFilterChange);
 function onClassFilterChange(){
     var getValue = filterClassName.value;
     console.log("getValue",getValue);
     var filterStudentsName = students.filter((student)=>{
-        return student.className == getValue;
     })
     onNameFilterChange(filterStudentsName);
+    // title1.innerHTML = getValue;
 }
 function onNameFilterChange(items){
+    
     console.log("item",items);
     var content = items.map((item)=>{
         return '<option>'+ item.name + '</option>';
     })
 
     filterName.innerHTML = content;
+   
 }
+
+
 </script>
+ 
 </html>
